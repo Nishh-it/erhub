@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to ER-HUB</title>
+    <link rel="stylesheet" href="css/styles.css">
+
+</head>
+
+<body>
+    <header>
+        <h2 class="logo">Logo</h2>
+        <nav class="navigation">
+            <a href="#" class="line">Home</a>
+            <a href="#" class="line">About</a>
+            <a href="#" class="line">Services</a>
+            <a href="#" class="line">Contact</a>
+            <button class="btnLogin-popup">Login</button> <!-- Login button -->
+            <button id="btnLogout" class="btn" style="display: none;">Logout</button>
+        </nav>
+    </header>
+
+    <div class="wrapper">
+        <span class="icon-close"><ion-icon name="close"></ion-icon></span>
+
+        <!-- Forgot Password Form -->
+        <div class="form-box forgot">
+            <h2>Reset Password</h2>
+            <form action="/api/auth/reset-password" method="post">
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="mail"></ion-icon></span>
+                    <input type="email" required>
+                    <label>Email</label>
+                </div>
+
+                <button type="submit" class="reset-btn" name="send-link">Send Link</button>
+
+                <div class="forgot-register">
+                    <p>Create new account
+                    <a href="#" class="create-link">Register</a></p>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Login Form -->
+        <div class="form-box login">
+            <h2>Login</h2>
+            <div class="error-message" style="display: none;"></div> <!-- Error message placeholder -->
+            <form id="loginForm" action="/api/auth/login" method="post">
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="mail"></ion-icon></span>
+                    <input type="email" name="email" required>
+                    <label>Email</label>
+                </div>
+
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+                    <input type="password" name="password" required>
+                    <label>Password</label>
+                </div>
+                <div class="remember-forgot">
+                    <label><input type="checkbox">Remember me</label>
+                    <a href="#" class="forgot-link">Forgot password?</a>
+                </div>
+                <button type="submit" class="btn" name="login">Login</button>
+
+                <div class="login-register">
+                    <p>Don't have an account?
+                    <a href="#" class="register-link">Register</a></p>
+                </div>
+            </form>
+        </div>
+
+        <!-- Registration Form -->
+        <div class="form-box register">
+            <h2>Registration</h2>
+            <form id="registerForm" action="/api/auth/register" method="post">
+                <div id="error-message" style="color: red; display: none;"></div>
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="person"></ion-icon></span>
+                    <input type="text" name="username" required>
+                    <label>Username</label>
+                </div>
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="mail"></ion-icon></span>
+                    <input type="email" name="email" required>
+                    <label>Email</label>
+                </div>
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+                    <input type="password" name="password" required>
+                    <label>Password</label>
+                </div>
+                <div class="remember-forgot">
+                    <label><input type="checkbox" required>Agree to Terms & Conditions</label>
+                </div>
+                <button type="submit" class="btn" name="submit">Register</button>        
+                    <p>Already have an account?
+                    <a href="#" class="login-link">Login</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const wrapper = document.querySelector('.wrapper');
+        const loginLink = document.querySelector('.login-link');
+        const registerLink = document.querySelector('.register-link');
+        const createLink = document.querySelector('.create-link');
+        const btnPopup = document.querySelector('.btnLogin-popup');
+        const iconClose = document.querySelector('.icon-close');
+        const forgotLink = document.querySelector('.forgot-link');
+
+        registerLink.addEventListener('click',()=>{
+            wrapper.classList.add('active');
+            wrapper.classList.remove('set');
+        });
+
+        createLink.addEventListener('click',()=>{
+            wrapper.classList.add('active');
+            wrapper.classList.remove('set');
+        });
+
+        loginLink.addEventListener('click',()=>{
+            wrapper.classList.remove('active','set');
+        });
+
+        forgotLink.addEventListener('click',()=>{
+            wrapper.classList.add('set');
+        });
+
+        btnPopup.addEventListener('click',()=>{
+            wrapper.classList.add('active-popup');
+        });
+
+        iconClose.addEventListener('click',()=>{
+            wrapper.classList.remove('active-popup','active','set');
+        });
+    </script>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="js\script.js"></script>
+    <script src="server\models\User.js"></script>
+    <script src="server\routes\auth.js"></script>
+</body>
+</html>
