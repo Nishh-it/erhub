@@ -9,15 +9,21 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
-app.use(express.static("public"));  // Ensure public folder is accessible
+app.use(express.static("public")); // Ensure public folder is accessible
 
 // Database Connection
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
-.then(() => console.log("Connected to MongoDB"))
-.catch(err => console.error("Database connection error:", err));
+  .then(() => {
+    console.log("Connected to MongoDB");
+    console.log(`Connected to database: ${mongoose.connection.name}`); // Logs database name
+  })
+  .catch(err => console.error("Database connection error:", err));
+
+// Debugging mongoose queries
+mongoose.set("debug", true);
 
 // Routes
 const authRoutes = require("./routes/auth");
