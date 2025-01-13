@@ -1,8 +1,9 @@
 {
   "name": "erhub",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",   
   "scripts": {
+    "start": "node server.js",  
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -18,5 +19,8 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.9.3",
     "pm2": "^5.4.3"
+  },
+  "engines": {
+    "node": "14.x"
   }
 }
