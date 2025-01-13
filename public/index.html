@@ -27,7 +27,7 @@
         <div class="form-box forgot">
             <h2>Reset Password</h2>
             <div id="forgot-error-message" style="color: red; display: none;"></div>
-            <form id="resetPasswordForm" action="/api/auth/reset-password" method="post">
+            <form id="resetPasswordForm" action="api/auth/reset-password" method="post">
                 <div class="input-box">
                     <span class="icon"><ion-icon name="mail"></ion-icon></span>
                     <input type="email" name="email" required>
@@ -46,7 +46,7 @@
         <div class="form-box login">
             <h2>Login</h2>
             <div class="error-message" style="display: none;"></div>
-            <form id="loginForm" action="/api/auth/login" method="post">
+            <form id="loginForm" action="/api/auth/login.js" method="post">
                 <div class="input-box">
                     <span class="icon"><ion-icon name="mail"></ion-icon></span>
                     <input type="email" name="email" required>
@@ -74,7 +74,7 @@
         <div class="form-box register">
             <h2>Registration</h2>
             <div id="register-error-message" style="color: red; display: none;"></div>
-            <form id="registerForm" action="/api/auth/register" method="post">
+            <form id="registerForm" action="/api/auth/register.js" method="post">
                 <div class="input-box">
                     <span class="icon"><ion-icon name="person"></ion-icon></span>
                     <input type="text" name="username" required>
