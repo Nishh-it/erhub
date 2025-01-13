@@ -24,6 +24,7 @@ module.exports = async (req, res) => {
       const newUser = new User({ username, email, password: hashedPassword });
       const savedUser = await newUser.save();
 
+      res.setHeader('Content-Type', 'application/json'); // Set Content-Type header for JSON
       res.status(201).json({ message: "User registered successfully!" });
     } catch (err) {
       console.error("Registration error:", err);

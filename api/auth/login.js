@@ -22,6 +22,7 @@ module.exports = async (req, res) => {
       // Generate JWT token
       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
 
+      res.setHeader('Content-Type', 'application/json'); // Set Content-Type header for JSON
       res.status(200).json({
         message: "Login successful!",
         token,
