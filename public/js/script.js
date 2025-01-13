@@ -55,7 +55,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: JSON.stringify({ email, password }),
             });
 
+            // Ensure the response is in JSON format
             const data = await response.json();
+
             if (response.ok) {
                 alert('Login successful!');
                 // Handle UI update for logged-in state

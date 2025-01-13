@@ -29,7 +29,7 @@ module.exports = async (req, res) => {
       });
     } catch (err) {
       console.error("Error logging in:", err);
-      res.status(500).json({ error: "Login failed." });
+      res.status(500).json({ error: "A server error occurred." });  // Ensure the response is always in JSON format
     }
   } else {
     res.status(405).json({ error: "Method Not Allowed" });
