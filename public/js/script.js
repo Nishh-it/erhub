@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             const response = await fetch('/server/routes/auth', {
-                method: 'POST',
+                method: 'post',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username, email, password }),
             });
