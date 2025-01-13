@@ -79,21 +79,11 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
     }
 });
 
-// Function to display error messages
 function displayErrorMessage(message) {
     const errorElement = document.getElementById('error-message');
     if (errorElement) {
         errorElement.textContent = message; // Update the error message
         errorElement.style.display = 'block'; // Make it visible
-    }
-}
-
-// Function to hide error messages
-function hideErrorMessage() {
-    const errorElement = document.getElementById('error-message');
-    if (errorElement) {
-        errorElement.textContent = ''; // Clear the error message
-        errorElement.style.display = 'none'; // Hide the element
     }
 }
 
@@ -130,17 +120,20 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
                 alert("Redirect URL is not specified.");
             }
         } else {
-            displayErrorMessage(result.message || "Login failed!");
+            alert(result.message || "Login failed!");
         }
     } catch (error) {
         console.error('Error submitting form:', error);  // Log the error details
-        displayErrorMessage('An unexpected error occurred.');
+        alert('An unexpected error occurred. Check the console for details.');
     }
 });
+
 
 document.addEventListener("DOMContentLoaded", () => {
     const btnLogin = document.querySelector("#btnLogin");
     const btnLogout = document.querySelector("#btnLogout");
+    const wrapper = document.querySelector('.wrapper');
+    const loginForm = document.getElementById("loginForm");
 
     // Check if user is logged in by checking the presence of the token
     if (localStorage.getItem('token')) {
@@ -156,4 +149,70 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.removeItem("token"); // Remove the token
         window.location.href = '/home'; // Redirect to login page or home page
     });
+
+    // Handle login form submission
+    loginForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const formData = new FormData(loginForm);
+        const formObject = Object.fromEntries(formData.entries());
+
+        try {
+            const response = await fetch(loginForm.action, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formObject),
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                // Store token in localStorage and update UI
+                localStorage.setItem("token", result.token);
+                btnLogin.style.display = 'none'; // Hide login button
+                btnLogout.style.display = 'block'; // Show logout button
+                window.location.href = result.redirect; // Redirect to home page
+            } else {
+                // Show error message
+                alert(result.message || "Login failed!");
+            }
+        } catch (error) {
+            console.error("Error during login:", error);
+            alert("An unexpected error occurred.");
+        }
+    });
 });
+
+  const loginForm = document.getElementById('loginForm');
+
+  loginForm.addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent form from reloading the page
+    
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+
+    // Send POST request to the server for login
+    fetch('/api/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.message === "Login successful!") {
+        // If login is successful, store the JWT token and redirect to home
+        localStorage.setItem('token', data.token);  // Store token in localStorage (or sessionStorage)
+
+        // Redirect to home page
+        window.location.href = data.redirect;  // Redirect to home.html (or /home route)
+      } else {
+        alert('Invalid login credentials');
+      }
+    })
+    .catch(err => {
+      console.error('Error:', err);
+    });
+  });
