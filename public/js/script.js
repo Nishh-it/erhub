@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnPopup = document.querySelector('.btnLogin-popup');
     const iconClose = document.querySelector('.icon-close');
     const forgotLink = document.querySelector('.forgot-link');
+    const API_BASE_URL = '/api/auth';
 
     // Event listener for the "Register" link
     registerLink.addEventListener('click', () => {
