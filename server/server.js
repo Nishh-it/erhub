@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 app.use(express.static("public")); // Ensure public folder is accessible
 
 // Database Connection
-mongoose.connect(process.env.MONGO_URI, {
+mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
